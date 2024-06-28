@@ -5,8 +5,7 @@ const DotenvWebpackPlugin = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const WorkboxPlugin = require('workbox-webpack-plugin');
-
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 module.exports = (env, args) => {
   const mode = args.mode;
@@ -14,12 +13,12 @@ module.exports = (env, args) => {
   return {
     mode: "development",
     stats: "minimal",
-    entry: ["@babel/polyfill", "./src/index.tsx"],
+    entry: "./src/index.tsx",
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "js/[name].[hash].js",
-      chunkFilename: 'js/[name].[contenthash].js',
-      publicPath: '/'
+      chunkFilename: "js/[name].[contenthash].js",
+      publicPath: "/",
     },
     optimization: {
       splitChunks: {
@@ -42,7 +41,6 @@ module.exports = (env, args) => {
       port: 3000,
       open: false,
       hot: true,
-      // static: './public',
       historyApiFallback: true,
     },
     resolve: {
@@ -72,9 +70,13 @@ module.exports = (env, args) => {
       }),
       new CopyPlugin({
         patterns: [
-          { globOptions: {
-            ignore: ["**/index.html"],
-          }, from: path.resolve(__dirname, "public"), to: path.resolve(__dirname, "build") },
+          {
+            globOptions: {
+              ignore: ["**/index.html"],
+            },
+            from: path.resolve(__dirname, "public"),
+            to: path.resolve(__dirname, "build"),
+          },
         ],
       }),
       new CleanWebpackPlugin(),
