@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import styles from './index.module.scss'
+import { App } from '@src/@app'
+import './index.sass'
 
 
 const root = ReactDOM.createRoot(
@@ -11,7 +12,7 @@ const asd = 'werwetrytfghfghyr'
 
 root.render(
   <React.StrictMode>
-    <p className={styles.test}>{asd}dfgdfgdfg</p>
+    <App />
   </React.StrictMode>
 );
 
