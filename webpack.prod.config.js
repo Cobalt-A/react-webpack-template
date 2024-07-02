@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env, args) => {
   const mode = args.mode;
@@ -55,9 +54,6 @@ module.exports = (env, args) => {
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
-      }),
-      new ESLintPlugin({
-        files: "src/**/*.ts",
       }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",
@@ -114,16 +110,18 @@ module.exports = (env, args) => {
           ],
         },
         {
-          test: /\.(png|jpeg|gif|ico|jpg|woff(2)?|eot|ttf|otf|svg)$/i,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[name].[ext]",
-                outputPath: "media",
-              },
-            },
-          ],
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext][query]",
+          },
+        },
+        {
+          test: /\.(ico|png|jpg|jpeg|webp|svg)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "images/[name][ext][query]",
+          },
         },
         {
           test: /\.(ts|js)x?$/,

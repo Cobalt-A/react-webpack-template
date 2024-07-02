@@ -75,16 +75,18 @@ module.exports = (env, args) => {
           use: ["style-loader", "css-loader", "sass-loader"],
         },
         {
-          test: /\.(png|jpeg|gif|ico|jpg|woff(2)?|eot|ttf|otf|svg)$/i,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[name].[ext]",
-                outputPath: "media",
-              },
-            },
-          ],
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext][query]",
+          },
+        },
+        {
+          test: /\.(ico|png|jpg|jpeg|webp|svg)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "images/[name][ext][query]",
+          },
         },
         {
           test: /\.(ts|js)x?$/,

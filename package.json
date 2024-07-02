@@ -15,7 +15,6 @@
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^8.0.1",
     "eslint-webpack-plugin": "^4.2.0",
-    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-loader": "^7.0.2",
