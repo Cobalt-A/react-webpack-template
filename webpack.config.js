@@ -5,10 +5,50 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env, args) => {
   const mode = args.mode;
   const envFile = path.resolve(__dirname, `.env.${args.mode}`);
+
+  const plugins = [
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
+    new ESLintPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      favicon: path.resolve(__dirname, "public", "favicon.ico"),
+    }),
+    new DotenvWebpackPlugin({
+      path: envFile,
+      safe: true,
+      systemvars: true,
+      silent: true,
+    }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[hash].css",
+      chunkFilename: "css/[id].[chunkhash].chunk.css",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          globOptions: {
+            ignore: ["**/index.html"],
+          },
+          from: path.resolve(__dirname, "public"),
+          to: path.resolve(__dirname, "build"),
+        },
+      ],
+    }),
+  ]
+
+  // deleting sw in dev mode
+  if (mode === 'development') {
+    plugins.shift()
+  }
+
   return {
     mode: "development",
     stats: "minimal",
@@ -49,37 +89,7 @@ module.exports = (env, args) => {
       },
       extensions: [".scss", ".sass", ".ts", ".tsx", ".js", ".jsx"],
     },
-    plugins: [
-      new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-      }),
-      new HtmlWebpackPlugin({
-        template: "./public/index.html",
-        favicon: path.resolve(__dirname, "public", "favicon.ico"),
-      }),
-      new DotenvWebpackPlugin({
-        path: envFile,
-        safe: true,
-        systemvars: true,
-        silent: true,
-      }),
-      new MiniCssExtractPlugin({
-        filename: "css/[name].[hash].css",
-        chunkFilename: "css/[id].[chunkhash].chunk.css",
-      }),
-      new CopyPlugin({
-        patterns: [
-          {
-            globOptions: {
-              ignore: ["**/index.html"],
-            },
-            from: path.resolve(__dirname, "public"),
-            to: path.resolve(__dirname, "build"),
-          },
-        ],
-      }),
-    ],
+    plugins: plugins,
     module: {
       rules: [
         {

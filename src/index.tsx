@@ -14,6 +14,8 @@ root.render(
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
+    console.log(123);
+    
     navigator.serviceWorker
     .register("/service-worker.js")
     .then((registration) => {
