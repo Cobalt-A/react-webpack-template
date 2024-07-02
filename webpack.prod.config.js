@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
-const ESLintPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env, args) => {
   const mode = args.mode;
@@ -20,7 +20,7 @@ module.exports = (env, args) => {
       filename: "js/[name].[hash].js",
       chunkFilename: "js/[name].[contenthash].js",
       publicPath: "/",
-      clean: true
+      clean: true,
     },
     optimization: {
       splitChunks: {
@@ -49,7 +49,7 @@ module.exports = (env, args) => {
       alias: {
         "@src": path.resolve(__dirname, "./src"),
       },
-      extensions: [".scss", ".sass", ".ts", ".tsx", ".js", ".jsx"],
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
     plugins: [
       new WorkboxPlugin.GenerateSW({
@@ -57,7 +57,7 @@ module.exports = (env, args) => {
         skipWaiting: true,
       }),
       new ESLintPlugin({
-        files: 'src/**/*.ts',
+        files: "src/**/*.ts",
       }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",
@@ -88,7 +88,7 @@ module.exports = (env, args) => {
     module: {
       rules: [
         {
-          test: /\.(sa|sc|c)ss$/,
+          test: /\.module\.(sa|sc|c)ss$/,
           use: [
             {
               loader: MiniCssExtractPlugin.loader,
@@ -96,12 +96,21 @@ module.exports = (env, args) => {
             {
               loader: "css-loader",
               options: {
-                esModule: true,
                 modules: true,
               },
             },
             "sass-loader",
-            "postcss-loader",
+          ],
+        },
+        {
+          test: /\.(sa|sc|c)ss$/,
+          exclude: /\.module\.(sa|sc|c)ss$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            "css-loader",
+            "sass-loader",
           ],
         },
         {
@@ -118,7 +127,7 @@ module.exports = (env, args) => {
         },
         {
           test: /\.(ts|js)x?$/,
-          use: 'ts-loader',
+          use: "ts-loader",
           exclude: /node_modules/,
         },
       ],
