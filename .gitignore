@@ -1,6 +1,13 @@
-/node_modules
-/build
-/coverage
+/**/node_modules/
+/**/Thumbs.db
+/**/*.DS_Store
+/**/package-lock.json
+/**/debug.log
+/**/coverage/
+/**/build/
+/**/bitmaps_test/
+/**/coverage
+/.git/
 .DS_Store
 .env.local
 .env.development.local
@@ -9,4 +16,3 @@
 yarn-debug.log*
 yarn-error.log*
 .idea
-/**/package-lock.json*
