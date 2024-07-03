@@ -17,7 +17,7 @@ module.exports = (env, args) => {
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "js/[name].[hash].js",
-      chunkFilename: "js/[name].[contenthash].js",
+      chunkFilename: "js/[name].[chunkhash].js",
       publicPath: "/",
       clean: true,
     },
@@ -47,6 +47,7 @@ module.exports = (env, args) => {
     resolve: {
       alias: {
         "@src": path.resolve(__dirname, "./src"),
+        "@public": path.resolve(__dirname, "./public"),
       },
       extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
@@ -54,6 +55,7 @@ module.exports = (env, args) => {
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
+        exclude: ['.htaccess']
       }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",
@@ -73,7 +75,7 @@ module.exports = (env, args) => {
         patterns: [
           {
             globOptions: {
-              ignore: ["**/index.html"],
+              ignore: ["**/index.html", "/**/images/", "/**/fonts/"],
             },
             from: path.resolve(__dirname, "public"),
             to: path.resolve(__dirname, "build"),

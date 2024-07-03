@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpackPlugin = require("dotenv-webpack");
-const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, args) => {
   const mode = args.mode;
@@ -14,7 +13,7 @@ module.exports = (env, args) => {
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "js/[name].[hash].js",
-      chunkFilename: "js/[name].[contenthash].js",
+      chunkFilename: "js/[name].[chunkhash].js",
       publicPath: "/",
       clean: true,
     },
@@ -23,16 +22,17 @@ module.exports = (env, args) => {
       port: 3000,
       open: false,
       hot: true,
+      historyApiFallback: true
     },
     resolve: {
       alias: {
         "@src": path.resolve(__dirname, "./src"),
+        "@public": path.resolve(__dirname, "./public"),
       },
       extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
     plugins: [
       new HtmlWebpackPlugin({
-        hash: true,
         template: "./public/index.html",
         favicon: path.resolve(__dirname, "public", "favicon.ico"),
       }),
@@ -41,17 +41,6 @@ module.exports = (env, args) => {
         safe: true,
         systemvars: true,
         silent: true,
-      }),
-      new CopyPlugin({
-        patterns: [
-          {
-            globOptions: {
-              ignore: ["**/index.html"],
-            },
-            from: path.resolve(__dirname, "public"),
-            to: path.resolve(__dirname, "build"),
-          },
-        ],
       }),
     ],
     module: {

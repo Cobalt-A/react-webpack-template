@@ -8,8 +8,6 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const asd = 'werwetrytfghfghyr'
-
 root.render(
   <React.StrictMode>
     <App />
