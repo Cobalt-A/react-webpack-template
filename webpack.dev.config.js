@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpackPlugin = require("dotenv-webpack");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env, args) => {
   const mode = args.mode;
@@ -22,7 +23,7 @@ module.exports = (env, args) => {
       port: 3000,
       open: false,
       hot: true,
-      historyApiFallback: true
+      historyApiFallback: true,
     },
     resolve: {
       alias: {
@@ -41,6 +42,9 @@ module.exports = (env, args) => {
         safe: true,
         systemvars: true,
         silent: true,
+      }),
+      new ESLintPlugin({
+        extensions: ["js", "jsx", "ts", "tsx"],
       }),
     ],
     module: {
