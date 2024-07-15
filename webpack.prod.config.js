@@ -55,7 +55,7 @@ module.exports = (env, args) => {
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
-        exclude: ['.htaccess']
+        exclude: [".htaccess"],
       }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",

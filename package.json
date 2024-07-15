@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --hot --mode development --config=webpack.dev.config.js",
-    "build": "webpack --mode production --config=webpack.prod.config.js"
+    "build": "webpack --mode production --config=webpack.prod.config.js",
+    "lint": "eslint ./src/index.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -22,6 +24,7 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-loader": "^7.0.2",
+    "prettier": "^3.3.3",
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.4",
