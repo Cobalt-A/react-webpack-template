@@ -22,6 +22,11 @@ module.exports = () => {
       hot: true,
       historyApiFallback: true,
     },
+    optimization: {
+      splitChunks: {
+        chunks: "all",
+      },
+    },
     resolve: {
       alias: {
         "@src": path.resolve(__dirname, "./src"),
