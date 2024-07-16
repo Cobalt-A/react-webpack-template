@@ -17,3 +17,15 @@ react-webpack-template
 Для сборки проекта в production режиме:
 
 ### `npm run build`
+
+Обслужить build папку на `localhost:8000`:
+
+### `npm run serve`
+
+Проверить проект Eslint'ом:
+
+### `npm run format`
+
+Отформатировать проект:
+
+### `npm run format`

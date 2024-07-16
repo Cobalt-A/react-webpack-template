@@ -3,10 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpackPlugin = require("dotenv-webpack");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
-module.exports = (env, args) => {
-  const mode = args.mode;
-  const envFile = path.resolve(__dirname, `.env.${args.mode}`);
-
+module.exports = () => {
   return {
     mode: "development",
     stats: "minimal",

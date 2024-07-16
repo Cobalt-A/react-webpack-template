@@ -6,12 +6,9 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 
-module.exports = (env, args) => {
-  const mode = args.mode;
-  const envFile = path.resolve(__dirname, `.env.${args.mode}`);
-
+module.exports = () => {
   return {
-    mode: "development",
+    mode: "production",
     stats: "minimal",
     entry: "./src/index.tsx",
     output: {
