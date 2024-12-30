@@ -59,7 +59,7 @@ module.exports = () => {
         favicon: path.resolve(__dirname, "public", "favicon.ico"),
       }),
       new DotenvWebpackPlugin({
-        path: envFile,
+        path: '.env',
         safe: true,
         systemvars: true,
         silent: true,
